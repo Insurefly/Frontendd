@@ -56,7 +56,7 @@ export default function Hero() {
       <div className="flex flex-1 flex-col items-center justify-center">
         <div
           className="h-[95%] w-[80%] rounded-t-full rounded-bl-full rounded-br-[145rem] bg-primary 
-        bg-[url('https://th.bing.com/th/id/OIP.WrXcs9FJIZY9ou7gEISgPwHaE0?w=277&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7')]"
+        bg-[url('/images/illustrations/home-img.jpg')] bg-cover"
         ></div>
       </div>
     </section>
