@@ -6,14 +6,5 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 export default defineConfig({
   plugins: [react(), nodePolyfills()],
   define: {},
-  server: {
-    hmr: {
-      // Disable auto reload entirely
-      // overlay: false,
-      
-      // Or configure the HMR connection
-      protocol: 'ws',
-      host: 'localhost',
-      port: 5173
-    }
-  },});
+ 
+  });

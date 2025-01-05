@@ -61,7 +61,7 @@ export default function Navbar() {
             src="/brand.png"
             alt="agrosure"
             draggable={false}
-            className="aspect-auto max-h-8"
+            className=" w-60 h-40"
           />
         </Link>
       </div>
