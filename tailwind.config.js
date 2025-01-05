@@ -8,18 +8,18 @@ export default {
         widescreen: { min: "780px" },
       },
       colors: {
-        primary: "#219d4d",
-        secondary: "#ebab2d",
-        tertiary: "#51dd8e",
-        background: "#ffffff",
-        foreground: "#1a1a1a",
-        back: "#ffffff",
-        front: "#2a2d2f",
+        primary: "#0052CC",      // Strong blue
+        secondary: "#00B8D9",    // Light blue
+        tertiary: "#4C9AFF",     // Soft blue
+        background: "#FFFFFF",    // Kept original
+        foreground: "#1a1a1a",   // Kept original
+        back: "#FFFFFF",         // Kept original
+        front: "#2a2d2f",        // Kept original
         dark: {
-          background: "#4a4b4c",
-          foreground: "#cfcecd",
+            background: "#1B2638", // Dark blue background
+            foreground: "#E6ECF5", // Light blue-grey
         },
-      },
+    },
       content: {
         visible: '""',
       },
