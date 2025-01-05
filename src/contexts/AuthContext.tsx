@@ -80,8 +80,8 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
     (async () => {
       const { chainId } = await _provider.getNetwork();
-      if (chainId != parseInt(networkConfig.chainId)) {
-        setShowSwitchNetworkPage(true);
+      if (chainId != parseInt(networkConfig.chainId.toString())) {
+      
       }
     })();
   }, []);

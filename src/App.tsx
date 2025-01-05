@@ -50,7 +50,7 @@ export default function App() {
         />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/network-error" element={<SwitchNetworkPage />} />
+   
         <Route path="/error" element={<ErrorPage />} />
       </Route>
     )
