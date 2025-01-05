@@ -28,7 +28,7 @@ export default function Footer() {
             alt="agrosurance logo"
             className="aspect-square w-1/2"
           />
-          <img src="brand.png" alt="brand name" />
+        
         </div>
 
         <div className="flex flex-col">
