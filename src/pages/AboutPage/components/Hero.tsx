@@ -1,16 +1,12 @@
 export default function Hero() {
   return (
     <section className="p-page flex h-[calc(100vh_-_8rem)] items-center overflow-hidden">
-      <video
-        className="relative -z-1 w-1/2 scale-125 object-cover"
-        autoPlay
-        muted
-        loop
-      >
-        <source src="/videos/happy-farmer2.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div className="relative flex basis-1/2 flex-col items-center gap-y-8">
+     <img
+  src="/images/family.png"
+  alt="Family traveling"
+  className="relative w-1/2 bg-transparent object-cover"
+/>
+      <div className="relative flex basis-1/2 flex-col items-center gap-y-11">
         <div className="flex flex-col items-center gap-y-2 text-center font-raleway text-5xl font-semibold text-primary">
         <h1 className="font-bold brightness-75">
          Travel Smarter, Fly Safer

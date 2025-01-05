@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Vision() {
   return (
-    <section className="relative flex aspect-video flex-col items-center justify-center bg-[url('/images/illustrations/farmland.png')] bg-cover bg-fixed bg-top">
+    <section className="relative flex aspect-video flex-col items-center justify-center bg-[url('/images/plane.webp')] bg-cover bg-fixed bg-top">
       <div className="absolute left-0 top-0 z-0 flex h-full w-full flex-col items-center bg-gradient-to-b from-transparent via-[#00000099] to-[#00000088] leading-snug tracking-wide" />
 
       <div className="p-page relative z-1 flex flex-col items-center gap-y-3 text-center text-white drop-shadow-lg">

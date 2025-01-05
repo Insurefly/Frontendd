@@ -1,4 +1,4 @@
-export const defaultCacheTimeout = 30000 * 60 * 1000;
+export const defaultCacheTimeout = 3 * 60 * 1000;
 
 export const networkConfig = {
   // Using decimal format instead of hex for better compatibility

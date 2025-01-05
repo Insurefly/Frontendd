@@ -30,9 +30,9 @@ export default function Header() {
           className="pointer-events-none relative h-full flex-1 selection:hidden"
           draggable={false}
         >
-          <div className="absolute left-0 top-0 z-1 h-full w-full content-visible" />
+          <div className="absolute left-0 top-0 z-1 h-3/4 w-3/4 content-visible" />
           <img
-            src="/images/dashboard-banner-cutout.png"
+            src="/images/plane.webp"
             alt="flights across the world"
             className="pointer-events-none object-bottom selection:hidden"
             draggable={false}
