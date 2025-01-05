@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-background font-poppins text-front;
+  }
+  body {
+    @apply m-0 p-0;
+  }
+
+  input {
+    @apply border-none outline-none;
+  }
+}
+
+@layer components {
+  .btn-1 {
+    @apply;
+  }
+
+  .btn-2 {
+    @apply before:absolute-center relative rounded-md border-2 border-primary text-primary duration-300 before:absolute before:-z-1 before:h-0 before:w-0 before:rounded-[100%]
+    before:bg-primary before:duration-inherit before:content-visible hover:text-back hover:before:h-full hover:before:w-full hover:before:scale-[101%] hover:before:rounded-none;
+  }
+}
+
+@layer utilities {
+  .border-sketch {
+    @apply relative before:absolute before:-left-[0.1em] before:top-[0.1em] before:-z-1 before:h-[1em] before:w-full before:rotate-2 before:animate-[border-sketch-anim_2000ms] 
+    before:rounded-[50%] before:border-[4px] before:border-solid before:border-inherit before:border-r-transparent before:px-[0.25em] before:py-[0.5em] before:opacity-70 before:content-visible after:absolute after:-left-[0.1em]
+    after:top-[0.3em] after:-z-1 after:h-[1em] after:w-full after:-rotate-2 after:animate-[border-sketch-anim_2000ms] after:rounded-[50%] after:border-[4px] after:border-solid
+    after:border-inherit after:border-l-transparent after:border-t-transparent after:px-[0.25em] after:py-[0.5em] after:opacity-70 after:content-visible;
+  }
+
+  .p-page {
+    @apply px-[8vw];
+  }
+
+  .absolute-center {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+}
