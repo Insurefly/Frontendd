@@ -12,23 +12,21 @@ export default function Hero() {
       </video>
       <div className="relative flex basis-1/2 flex-col items-center gap-y-8">
         <div className="flex flex-col items-center gap-y-2 text-center font-raleway text-5xl font-semibold text-primary">
-          <h1 className="font-bold brightness-75">
-            The Farmer-First Initiative
-          </h1>
-          <h2 className="saturate-150">for provably fair rates on</h2>
-          <h2 className="saturate-150">farmland insurance</h2>
-        </div>
-        <p className="px-2 text-sm">
-          At AgroSurance, we are revolutionizing the way farmers protect their
-          crops. We understand the challenges and uncertainties that farmers
-          face when it comes to safeguarding their livelihoods, and we are
-          committed to providing innovative solutions through our decentralized
-          application (dApp) powered by Chainlink. <br /> <br /> Our mission is
-          simple: to provide farmers with transparent, reliable, and efficient
-          crop insurance. We believe that every farmer deserves access to
-          affordable insurance that is tailored to their specific needs and
-          backed by advanced technology.
-        </p>
+        <h1 className="font-bold brightness-75">
+         Travel Smarter, Fly Safer
+        </h1>
+     <h2 className="saturate-150">for provably fair rates on</h2>
+     <h2 className="saturate-150">flight insurance</h2>
+    </div>
+  <p className="px-2 text-sm">
+    At WingSurance, we are revolutionizing the way travelers protect their trips. 
+    We understand the challenges and uncertainties that come with air travel, 
+    and we are committed to providing innovative solutions through our decentralized 
+    application (dApp) powered by Chainlink. <br /> <br /> 
+    Our mission is simple: to provide travelers with transparent, reliable, and efficient 
+    flight insurance. We believe that every traveler deserves access to affordable insurance 
+    that is tailored to their specific needs and backed by advanced technology.
+  </p>
       </div>
     </section>
   );

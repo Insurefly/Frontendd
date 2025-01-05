@@ -10,31 +10,29 @@ export default function Vision() {
           <h1 className="my-8 text-7xl font-bold">OUR VISION</h1>
         </div>
         <div className="">
-          <h4 className="">
-            {`Agrosurance envisions a future where farmers worldwide have
-            seamless access to transparent and reliable crop insurance. Through
-            the utilization of advanced technologies such as blockchain and
-            Chainlink, we aim to revolutionize the insurance industry and
-            empower farmers to protect their livelihoods effectively. By
-            simplifying the insurance process, fostering transparency, and
-            promoting sustainable practices, we strive to contribute to the
-            resilience and prosperity of the global agricultural community.`}
-          </h4>
-          <h5 className="">
-            {`We aspire to create a user-friendly dApp that enables farmers to
-            easily manage their insurance needs, from selecting crops to
-            receiving real-time quotes based on precise risk assessments. By
-            leveraging blockchain's immutability, we ensure transparency and
-            trust throughout the insurance journey, while our strategic
-            collaborations with agricultural experts and stakeholders drive
-            ongoing innovation and improvement. With our transformative approach
-            to agricultural insurance, we aim to provide farmers with the
-            confidence and financial stability necessary to make informed
-            decisions, invest in their operations, and thrive in an
-            ever-changing world. Together, we can shape a future where
-            agriculture flourishes, and farmers are equipped with the tools they
-            need to cultivate a sustainable and prosperous world.`}
-          </h5>
+        <h4 className="">
+          {`WingSurance envisions a future where travelers worldwide have seamless access 
+           to transparent and reliable flight insurance. By utilizing advanced technologies 
+           such as blockchain and Chainlink, we aim to revolutionize the insurance industry 
+           and empower travelers to safeguard their journeys effectively. By simplifying the 
+           insurance process, fostering transparency, and promoting trust, we strive to 
+           contribute to a safer and more confident global travel experience.`}
+        </h4>
+        <h5 className="">
+         {`We aspire to create a user-friendly dApp that enables travelers to 
+          easily manage their insurance needs, from selecting coverage options to 
+          receiving real-time quotes based on precise travel details. By leveraging 
+          blockchain's immutability, we ensure transparency and trust throughout the 
+          insurance journey, while our strategic collaborations with industry experts 
+          and stakeholders drive ongoing innovation and improvement. With our 
+          transformative approach to flight insurance, we aim to provide travelers 
+          with the confidence and financial security necessary to make informed 
+          decisions, explore the world, and enjoy peace of mind in an ever-changing 
+          travel landscape. Together, we can shape a future where travel is safer, 
+          and every journey is protected with the tools needed for a worry-free 
+          experience.`}
+        </h5>
+
         </div>
       </div>
     </section>

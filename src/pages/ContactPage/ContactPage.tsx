@@ -7,11 +7,12 @@ export default function ContactPage() {
         <div className="py-8">
           <h1 className="text-4xl font-medium text-red-950">Let's Talk</h1>
           <p className="my-3 w-1/2 text-justify text-sm">
-            We appreciate your interest in AgroSurance and welcome any
-            questions, suggestions, or collaboration opportunities you may have.
-            Our team is here to assist you and provide the information you need.
-            Please don't hesitate to reach out to us
+           Thank you for your interest in WingSurance! We’re always here to address your 
+           questions, hear your suggestions, or explore collaboration opportunities. 
+           Our dedicated team is ready to assist you and provide all the information 
+           you need. Feel free to get in touch with us anytime.
           </p>
+
           <form
             className="my-12 flex flex-col gap-y-6"
             action="https://formspree.io/f/xyyaqwlg"

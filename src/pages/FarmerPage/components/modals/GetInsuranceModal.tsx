@@ -103,7 +103,7 @@ function InitialState({ land }: { land: Land }) {
   return (
     <form onSubmit={getQuotes} className="mb-10 flex flex-col gap-y-6 px-10">
       <div className="flex flex-col gap-y-2">
-        <p>How much Insurance do you want to have for this peice of land?</p>
+        <p>How much Insurance do you want to have?</p>
         <div className="flex w-full flex-row justify-between rounded-xl border border-front px-2 py-2">
           <input
             required
@@ -145,9 +145,7 @@ function FailedState() {
   return (
     <div className="mb-10 flex flex-col gap-y-4 px-10">
       <p className="text-center">
-        By our Algorithm, We won't be able to provide you insurance if you grow
-        <br />
-        this crop on this land
+        Sorry, by our Algorithm, We won't be able to provide you insurance.
       </p>
       <div className=" flex flex-row justify-around">
         <div className="flex gap-x-10">
@@ -202,7 +200,7 @@ function SuccessState({ land }: { land: Land }) {
         <span className="mx-1 font-medium text-blue-500">
           {ethers.utils.formatEther((land.insurance as any).premium)}
         </span>
-        dollars for this farmland <br />
+        dollars for this flight <br />
         if you opt for a Insurance till
         <span className="mx-1 font-medium text-blue-500">
           {(land.insurance as any).insuredTill.toLocaleDateString()}
