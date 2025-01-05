@@ -54,7 +54,7 @@ export default function AddLand() {
         <MaterialIcon codepoint="e5cd" />
       </button>
       <h2 className="mb-10 bg-primary py-10 text-center font-raleway text-4xl font-bold tracking-tighter text-white">
-        Add Land
+        Add Flight
       </h2>
       <form onSubmit={addLand} className="flex flex-col gap-y-8 px-10 pb-10">
         <div className="flex flex-col">

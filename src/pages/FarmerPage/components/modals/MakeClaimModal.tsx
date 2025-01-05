@@ -45,7 +45,7 @@ function InitialState() {
 
   return (
     <div className="mb-10 flex flex-col gap-y-4 px-10">
-      <p>Do you really want to make a claim for this piece of land?</p>
+      <p>Do you really want to make a claim?</p>
       <div className=" flex flex-row justify-around">
         <button className="text-md w-[6ch] rounded-xl bg-red-500 px-2 py-2 font-semibold text-white duration-300 hover:-translate-y-1 hover:brightness-110">
           Yes
@@ -102,7 +102,7 @@ function SuccessState() {
       <p>
         You can successfully claim
         <span className="mx-1 font-medium text-red-500">{90}</span>
-        MATIC for this farmland
+        MATIC for this flight
       </p>
       <button className="my-3 w-max rounded-lg bg-red-500 px-6 py-2 text-white duration-300 hover:-translate-y-1 hover:saturate-150">
         Claim

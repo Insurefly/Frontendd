@@ -4,18 +4,19 @@ export default function Hero() {
   return (
     <section className="p-page flex">
       <div className="flex flex-col gap-y-5 py-12">
-        <h1 className="text-7xl font-semibold leading-snug">
-          Insure your crops
-          <br />
-          the <span className="border-sketch mr-4 border-secondary">smart</span>
-          way
-        </h1>
-        <p className="text-lg text-front text-opacity-60">
-          Insurance can be complicated but it doesn't have to be <br />
-          You can rely on{" "}
-          <span className="font-semibold text-primary">Agrosurance</span> to
-          provide you with the best terms
-        </p>
+      <h1 className="text-7xl font-semibold leading-snug">
+       Insure your trips  
+      <br />
+      the <span className="border-sketch mr-4 border-secondary">smart</span> way
+     </h1>
+    <p className="text-lg text-front text-opacity-60">
+      Flight insurance can be complicated, but it doesn’t have to be.  
+    <br />
+      You can rely on{" "}  
+    <span className="font-semibold text-primary">WingSurance</span> to provide you 
+    with the best coverage and peace of mind.
+   </p>
+
         <div className="my-10">
           <button className="relative flex items-center text-2xl font-semibold">
             Get a quote{" "}

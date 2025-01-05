@@ -14,7 +14,7 @@ export default function Form(props: { className?: string }) {
             </span>
             <input
               type="email"
-              placeholder="joe@gmail.com"
+              placeholder="example@gmail.com"
               className="text-md px-2"
             />
           </div>

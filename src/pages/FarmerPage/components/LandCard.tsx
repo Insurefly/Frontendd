@@ -71,7 +71,7 @@ export default function LandCard(props: LandCardProps) {
             ) : (
               <p className="flex items-center gap-x-1">
                 <span className="material-icons">&#xe99a;</span>
-                This land is not insured
+                This flight is not insured
               </p>
             )}
           </div>
@@ -124,14 +124,7 @@ export default function LandCard(props: LandCardProps) {
           }
         `}
         >
-          {!land.cropId ? (
-            <>
-              <span className="material-icons text-6xl group-hover:animate-pulse">
-                &#xe146;
-              </span>
-              <p>Add Crop</p>
-            </>
-          ) : land.insurance && land.insurance.isInsured ? (
+         {land.insurance && land.insurance.isInsured ? (
             <>
               <span className="material-icons text-6xl group-hover:animate-pulse">
                 &#xe002;

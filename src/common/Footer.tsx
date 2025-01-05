@@ -20,7 +20,7 @@ export default function Footer() {
         hideNav ? "hidden" : ""
       )}
     >
-      <div className="absolute bottom-6 left-6 right-6 top-6 -z-1 rounded-lg bg-primary brightness-50" />
+      <div className="absolute bottom-6 left-6 right-6 top-6 -z-1 rounded-xl bg-primary brightness-50" />
       <div className="flex justify-between text-sm font-light tracking-tight">
         <div className="flex basis-[14%] flex-col items-center gap-y-5 opacity-90 brightness-0 invert">
           <img
@@ -42,11 +42,11 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex flex-col">
-          <h5 className="font-semibold">For Farmers</h5>
+          <h5 className="font-semibold">For Payee</h5>
           <div className="my-7 flex flex-col gap-y-3">
             <Link to="/auth">Get Insured</Link>
             <Link to="/dashboard">Get a quote</Link>
-            <Link to="/dashboard">Farmer Dashboard</Link>
+            <Link to="/dashboard">Payee Dashboard</Link>
           </div>
         </div>
         <div className="flex flex-col">
@@ -61,11 +61,12 @@ export default function Footer() {
 
         <div className="flex flex-col items-center text-center text-back text-opacity-80">
           <h5 className="my-3 text-4xl font-bold tracking-tighter text-back">
-            TRULY GREEN
+           Sustainably Smart
           </h5>
-          <p>We create possibilities</p>
-          <p>for a world which has</p>
-          <p>forgotten the true</p>
+          <p>We open doors</p>  
+          <p>to a future that</p>  
+          <p>redefines what’s possible</p>  
+
           {/* <p className="font-semibold text-back">Annapurna</p> */}
           <img
             src="/images/illustrations/annapurna-text.png"
@@ -109,7 +110,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="my-2 w-full border border-back"></div>
-      <div className="mt-4 text-xs">© Agrosurance 2023</div>
+      <div className="mt-4 text-xs">© WingSurance 2025</div>
     </footer>
   );
 }

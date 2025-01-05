@@ -32,14 +32,15 @@ export default function AboutPage() {
         ))}
       </div>
       <section className="p-page mb-20 mt-32 text-center text-xl">
-        Join us on this exciting journey as we revolutionize the way farmers
-        protect their crops and secure their future. Experience the power of
-        transparent and reliable crop insurance with AgroSurance.
-        <p className="my-4 text-sm">
-          Together, we can cultivate resilience and drive agricultural
-          prosperity like never before.
-        </p>
-      </section>
+       Join us on this exciting journey as we revolutionize the way travelers 
+       protect their trips and secure peace of mind. Experience the power of 
+       transparent and reliable flight insurance with Insurefly.
+       <p className="my-4 text-sm">
+       Together, we can make air travel safer and more confident, ensuring 
+        you’re covered every mile of the way.
+      </p>
+</section>
+
     </>
   );
 }

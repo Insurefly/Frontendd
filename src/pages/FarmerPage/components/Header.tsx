@@ -11,16 +11,16 @@ export default function Header() {
       >
         <div className="flex">
           <div className="w-min pb-8 pl-10 pt-12">
-            <h1 className="whitespace-nowrap text-xl font-semibold tracking-wider text-back">
-              Welcome Back to Agrosurance
-            </h1>
-            <p className="my-3 text-xs font-medium text-back text-opacity-80">
-              We hope you and your crops are doing absolutely wonderful ! Just
-              in case anything has went south, do make a claim for it.
-              <br />
-              Make sure you have all your farmlands registered and insured with
-              us
-            </p>
+          <h1 className="whitespace-nowrap text-xl font-semibold tracking-wider text-back">
+            Welcome Back to WingSurance
+         </h1>
+        <p className="my-3 text-xs font-medium text-back text-opacity-80">
+         We hope your recent travels have been absolutely wonderful! If anything 
+         unexpected occurred, don’t hesitate to make a claim.  
+         <br />
+        Ensure all your upcoming trips are registered and insured with us for a 
+        worry-free travel experience.
+        </p>
             <button className="rounded-md bg-secondary px-4 py-1 font-medium text-back shadow duration-300 hover:-translate-y-1 hover:shadow-lg hover:brightness-110">
               Learn More
             </button>
@@ -33,7 +33,7 @@ export default function Header() {
           <div className="absolute left-0 top-0 z-1 h-full w-full content-visible" />
           <img
             src="/images/dashboard-banner-cutout.png"
-            alt="farmers USA INDIA CHINA"
+            alt="flights across the world"
             className="pointer-events-none object-bottom selection:hidden"
             draggable={false}
           />
@@ -52,7 +52,7 @@ export default function Header() {
             className="w-[38%]"
           />
           <h3 className="font-raleway font-semibold tracking-tight">
-            Add Land
+            Add Flight
           </h3>
         </button>
         <button className="relative flex items-center justify-between rounded-xl bg-secondary bg-opacity-20 p-3 px-6 text-2xl text-secondary duration-300 hover:bg-opacity-70 hover:text-back">

@@ -12,10 +12,10 @@ export default function Banner(props: { className?: string }) {
           className="brightness-0 invert"
         />
         <p className="text-md px-8 text-center text-back">
-          Becoming part of the Agrosurance community.
+          Be a part fo our community.
           <br />
           <span className="font-bold text-front">Register today</span> and
-          safeguard your farming legacy.
+          safeguard your life and wallet.
         </p>
       </div>
     </div>
