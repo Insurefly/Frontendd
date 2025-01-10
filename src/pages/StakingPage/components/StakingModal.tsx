@@ -1,48 +1,43 @@
-import { createRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useModal from "../../../hooks/useModal";
-import { useAuthContext } from "../../../contexts/AuthContext";
 import { ethers } from "ethers";
 
 export default function StakingModal() {
   const modal = useModal();
 
-  const { stakingManagerContract } = useAuthContext();
-  const amountRef = createRef<HTMLInputElement>();
-  const [totalStaked, setTotalStaked] = useState<ethers.BigNumber>();
-  const [totalRewardRate, setTotalRewardRate] = useState<ethers.BigNumber>();
-  const [amount, setAmount] = useState<number>(0);
+  const [totalStaked, setTotalStaked] = useState(ethers.BigNumber.from("1000000000000000000")); // Mocked: 1 ETH
+  const [totalRewardRate, setTotalRewardRate] = useState(ethers.BigNumber.from("50000000000000000")); // Mocked: 0.05 ETH/month
+  const [amount, setAmount] = useState<string>("0"); // Track input value as a string
 
   useEffect(() => {
-    if (!stakingManagerContract) return;
-
-    (async () => {
-      const _rewardRateInWei = await stakingManagerContract.totalRewardRate();
-      setTotalRewardRate(_rewardRateInWei);
-      const _totalStaked = await stakingManagerContract.totalStaked();
-      setTotalStaked(_totalStaked);
-    })();
-  }, [stakingManagerContract]);
+    // Mock initialization
+    setTotalStaked(ethers.BigNumber.from("1000000000000000000")); // 1 ETH
+    setTotalRewardRate(ethers.BigNumber.from("50000000000000000")); // 0.05 ETH/month
+  }, []);
 
   function calculateEarning() {
-    if (!totalStaked || !totalRewardRate) return 0;
-    const _amount = ethers.utils.parseEther(amountRef.current?.value || "0");
+    if (!totalStaked || !totalRewardRate || !amount) return 0;
 
+    const _amount = ethers.utils.parseEther(amount || "0");
     const finalStaked = _amount.add(totalStaked);
+
     const reward = totalRewardRate
       .mul(_amount)
-      .mul(30 * 60 * 60 * 24)
+      .mul(30 * 60 * 60 * 24) // Mock: 30 days
       .div(finalStaked);
+
     return Number(ethers.utils.formatEther(reward));
   }
 
   async function stake(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!stakingManagerContract) return;
+    const parsedAmount = ethers.utils.parseEther(amount);
 
-    const amount = ethers.utils.formatEther(amountRef.current?.value || "0");
-    const tx = await stakingManagerContract.stake({ value: amount });
-    await tx.wait(1);
+    // Mock staking: update state to simulate contract interaction
+    setTotalStaked(totalStaked.add(parsedAmount));
+
+    console.log(`Mock Staking: ${amount} ETH`);
     modal.hide();
   }
 
@@ -71,7 +66,8 @@ export default function StakingModal() {
           <input
             required
             type="number"
-            ref={amountRef}
+            value={amount} // Bind input value to state
+            onChange={(e) => setAmount(e.target.value)} // Update state on input change
             placeholder="Enter the number of stakes"
             className="text-md w-full px-2"
             step={0.00001}
@@ -84,13 +80,13 @@ export default function StakingModal() {
         </button>
       </form>
       <div className="flex flex-col gap-y-2 px-10 py-8">
-        <h6>You will recieve:</h6>
+        <h6>You will receive:</h6>
         <div className="flex flex-row justify-center gap-x-8">
-          <div className="flex aspect-square  flex-col items-center justify-center  rounded-full border-4 border-primary px-2 py-1 text-front">
+          <div className="flex aspect-square flex-col items-center justify-center rounded-full border-4 border-primary px-2 py-1 text-front">
             <span className="text-3xl font-bold">
-              {calculateEarning().toFixed(5)}
+              {calculateEarning().toFixed(2)}
             </span>
-            <span>Agro-coins</span>
+            <span>Wing-coins</span>
             <span className="text-xs text-front text-opacity-60">/month</span>
           </div>
         </div>

@@ -22,10 +22,10 @@ export default function Footer() {
     >
       <div className="absolute bottom-6 left-6 right-6 top-6 -z-1 rounded-xl bg-primary brightness-50" />
       <div className="flex justify-between text-sm font-light tracking-tight">
-        <div className="flex basis-[14%] flex-col items-center gap-y-5 opacity-90 brightness-0 invert">
+        <div className="flex basis-[25%] flex-col items-center gap-y-5 text-xl">
           <img
-            src="/logo.png"
-            alt="agrosurance logo"
+            src="/brandv.png"
+            alt="wingsurance logo"
             className="aspect-square w-1/2"
           />
         
@@ -68,18 +68,14 @@ export default function Footer() {
           <p>redefines what’s possible</p>  
 
           {/* <p className="font-semibold text-back">Annapurna</p> */}
-          <img
-            src="/images/illustrations/annapurna-text.png"
-            alt="annapurna"
-            className="my-2 h-4"
-          />
+      
         </div>
       </div>
       <div className="my-2 flex gap-x-4">
         <p className="font-raleway text-xl font-bold">Follow Us</p>
         <div className="flex items-center gap-x-3 brightness-0 invert">
           <Link
-            to="https://linkedin.com/in/marsian83"
+            to="https://linkedin.com/in/kairveee"
             target="_blank"
             className=""
           >
@@ -90,7 +86,7 @@ export default function Footer() {
             />
           </Link>
           <Link
-            to="https://instagram.com/marsian83"
+            to="https://instagram.com/kairveeehh"
             target="_blank"
             className=""
           >
@@ -100,7 +96,7 @@ export default function Footer() {
               className="aspect-square w-[3ch]"
             />
           </Link>
-          <Link to="https://www.github.com/Agrosurance" className="">
+          <Link to="https://www.github.com/kairveeehh" className="">
             <img
               src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-social-github-outline-128.png"
               alt="github"

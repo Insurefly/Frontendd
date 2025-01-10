@@ -5,9 +5,9 @@ export default function FarmerPage() {
   return (
     <>
       <Header />
-      <div className="my-16" />
+      <div className="" />
       <Lands />
-      <div className="my-16" />
+      <div className="" />
     </>
   );
 }

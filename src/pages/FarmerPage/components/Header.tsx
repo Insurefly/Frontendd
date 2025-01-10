@@ -11,26 +11,21 @@ export default function Header() {
       >
         <div className="flex">
           <div className="w-min pb-8 pl-10 pt-12">
-          <h1 className="whitespace-nowrap text-xl font-semibold tracking-wider text-back">
-            Welcome Back to WingSurance
-         </h1>
-        <p className="my-3 text-xs font-medium text-back text-opacity-80">
-         We hope your recent travels have been absolutely wonderful! If anything 
-         unexpected occurred, don’t hesitate to make a claim.  
-         <br />
-        Ensure all your upcoming trips are registered and insured with us for a 
-        worry-free travel experience.
-        </p>
+            <h1 className="whitespace-nowrap text-xl font-semibold tracking-wider text-back">
+              Welcome Back to WingSurance
+            </h1>
+            <p className="my-3 text-xs font-medium text-back text-opacity-80">
+              We hope your recent travels have been absolutely wonderful! If anything unexpected occurred, don’t hesitate to make a claim.
+              <br />
+              Ensure all your upcoming trips are registered and insured with us for a worry-free travel experience.
+            </p>
             <button className="rounded-md bg-secondary px-4 py-1 font-medium text-back shadow duration-300 hover:-translate-y-1 hover:shadow-lg hover:brightness-110">
               Learn More
             </button>
           </div>
         </div>
-        <div
-          className="pointer-events-none relative h-full flex-1 selection:hidden"
-          draggable={false}
-        >
-          <div className="absolute left-0 top-0 z-1 h-3/4 w-3/4 content-visible" />
+        <div className="pointer-events-none relative h-full flex-1 selection:hidden" draggable={false}>
+          <div className="absolute left-0 top-0 z-1 h-3/4 w-1/2 content-visible" />
           <img
             src="/images/plane.webp"
             alt="flights across the world"
@@ -39,24 +34,25 @@ export default function Header() {
           />
         </div>
       </div>
-      <div className="flex max-h-full min-h-full flex-1 flex-col items-center justify-between gap-y-2 px-14 py-10">
+      <div className="flex max-h-full min-h-full flex-1 flex-col items-center justify-between gap-y-0 px-14 py-14">
         <button
           onClick={() => {
-            modal.show(<AddLand />);
+            modal.show(<AddLand onClose={modal.hide} />);
           }}
           className="flex items-center justify-between rounded-xl bg-primary bg-opacity-20 p-3 px-6 text-2xl text-primary duration-300 hover:bg-opacity-70 hover:text-back"
         >
-          <img
-            src="/images/placeholder-land.png"
-            alt="land"
-            className="w-[38%]"
-          />
+          <svg className="w-[30%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 12h16M12 4v16" />
+          </svg>
           <h3 className="font-raleway font-semibold tracking-tight">
             Add Flight
           </h3>
         </button>
         <button className="relative flex items-center justify-between rounded-xl bg-secondary bg-opacity-20 p-3 px-6 text-2xl text-secondary duration-300 hover:bg-opacity-70 hover:text-back">
-          <img src="/images/ruined-land.png" alt="land" className="w-[38%]" />
+          <svg className="w-[38%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 12l6 6 6-6" />
+            <path d="M12 6v12" />
+          </svg>
           <h3 className="font-raleway font-semibold tracking-tight">
             Make Claim
           </h3>
