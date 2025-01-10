@@ -1,8 +1,33 @@
 import React, { useState, useEffect, createRef } from "react";
-import { ethers } from "ethers";
+import { ethers, ContractInterface } from "ethers";
 import { X } from "lucide-react";
-// import abi from "./abi.json";
+import contractAbi from "./abi.json";
 import flightsData from "./flights.json";
+
+interface Flight {
+  flight: {
+    flightNumber: string;
+    airline: {
+      name: string;
+      code: string;
+    };
+    departure: {
+      airport: {
+        name: string;
+        code: string;
+        city: string;
+      };
+      time: string;
+    };
+    arrival: {
+      airport: {
+        name: string;
+        code: string;
+      };
+      time: string;
+    };
+  };
+}
 
 interface StoredFlight {
   flightNumber: string;
@@ -32,19 +57,38 @@ interface AddFlightProps {
   onClose: () => void;
 }
 
+interface FlightInsuranceContract {
+  addFlight(
+    flightNumber: string,
+    departureTime: number,
+    arrivalTime: number,
+    insuranceAmount: ethers.BigNumber,
+    options?: { gasLimit: ethers.BigNumber }
+  ): Promise<ethers.ContractTransaction>;
+  estimateGas: {
+    addFlight(
+      flightNumber: string,
+      departureTime: number,
+      arrivalTime: number,
+      insuranceAmount: ethers.BigNumber
+    ): Promise<ethers.BigNumber>;
+  };
+}
+
+const contractAddress = "0x607B5b424EaDA87AB7D4Af72D1c0463C3d19305e";
+const abi = contractAbi as unknown as ContractInterface;
+
 export default function AddFlight({ onClose }: AddFlightProps) {
-  const [flights, setFlights] = useState<any[]>([]);
+  const [flights, setFlights] = useState<Flight[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
-  const [filteredFlights, setFilteredFlights] = useState<any[]>([]);
-  const [selectedFlight, setSelectedFlight] = useState<any>(null);
+  const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
+  const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
   const insuranceAmountRef = createRef<HTMLInputElement>();
-
-  const contractAddress = "YOUR_CONTRACT_ADDRESS";
 
   useEffect(() => {
     const uniqueCities = Array.from(
-      new Set(flightsData.map((item) => item.flight.departure.airport.city))
+      new Set(flightsData.map((item: Flight) => item.flight.departure.airport.city))
     );
     setCities(uniqueCities);
     setFlights(flightsData);
@@ -61,11 +105,11 @@ export default function AddFlight({ onClose }: AddFlightProps) {
   };
 
   const handleFlightSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selected = JSON.parse(event.target.value);
+    const selected = JSON.parse(event.target.value) as Flight;
     setSelectedFlight(selected);
   };
 
-  const storeFlightDetails = (flightDetails: any, insuranceAmount: string) => {
+  const storeFlightDetails = (flightDetails: Flight, insuranceAmount: string) => {
     const storedFlight: StoredFlight = {
       flightNumber: flightDetails.flight.flightNumber,
       airline: {
@@ -106,7 +150,11 @@ export default function AddFlight({ onClose }: AddFlightProps) {
       await provider.send("eth_requestAccounts", []);
 
       const signer = provider.getSigner();
-      const contract = new ethers.Contract(contractAddress, abi, signer);
+      const contract = new ethers.Contract(
+        contractAddress, 
+        abi, 
+        signer
+      ) as unknown as FlightInsuranceContract;
 
       const insuranceAmount = insuranceAmountRef.current?.value || "0";
       const parsedAmount = ethers.utils.parseEther(insuranceAmount);
@@ -128,7 +176,6 @@ export default function AddFlight({ onClose }: AddFlightProps) {
 
       await tx.wait(1);
       
-      // Store flight details in localStorage after successful transaction
       storeFlightDetails(selectedFlight, insuranceAmount);
       
       alert("Flight insurance added successfully!");
@@ -162,7 +209,6 @@ export default function AddFlight({ onClose }: AddFlightProps) {
       </div>
       
       <form onSubmit={addFlight} className="flex flex-col gap-y-8 px-8 pb-8">
-        {/* City Selection */}
         <div className="flex flex-col">
           <h2 className="font-semibold mb-2">Choose Departure City</h2>
           <select
@@ -180,7 +226,6 @@ export default function AddFlight({ onClose }: AddFlightProps) {
           </select>
         </div>
 
-        {/* Flight Selection */}
         {filteredFlights.length > 0 && (
           <div className="flex flex-col">
             <h2 className="font-semibold mb-2">Choose Flight</h2>
@@ -199,7 +244,6 @@ export default function AddFlight({ onClose }: AddFlightProps) {
           </div>
         )}
 
-        {/* Flight Details */}
         {selectedFlight && (
           <div className="border rounded-lg p-4 bg-white">
             <h3 className="font-bold text-xl mb-2">{selectedFlight.flight.flightNumber}</h3>
@@ -219,7 +263,6 @@ export default function AddFlight({ onClose }: AddFlightProps) {
           </div>
         )}
 
-        {/* Insurance Amount */}
         <div className="flex flex-col">
           <h2 className="font-semibold mb-2">Insurance Amount (AVAX)</h2>
           <input

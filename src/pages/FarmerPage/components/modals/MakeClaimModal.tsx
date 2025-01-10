@@ -21,10 +21,10 @@ export default function MakeClaimModal(props: MakeClaimModalProps) {
       <h2 className="mb-10 bg-red-500 py-10 text-center font-raleway text-4xl font-bold tracking-tighter text-white">
         Make Claim
       </h2>
-      {/* <InitialState /> */}
-      {/* <LoadingState /> */}
+      <InitialState />
+      <LoadingState />
       <FailedState />
-      {/* <SuccessState /> */}
+      <SuccessState />
     </div>
   );
 }

@@ -26,7 +26,6 @@ export default function Footer() {
           <img
             src="/brandv.png"
             alt="wingsurance logo"
-            className="aspect-square w-1/2"
           />
         
         </div>
