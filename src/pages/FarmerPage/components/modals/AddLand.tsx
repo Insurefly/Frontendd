@@ -1,98 +1,79 @@
 import React, { useState, useEffect, createRef } from "react";
-import { ethers, ContractInterface } from "ethers";
 import { X } from "lucide-react";
+import { ethers } from "ethers";
 import contractAbi from "./abi.json";
 import flightsData from "./flights.json";
 
-interface Flight {
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+export {};
+
+type Flight = {
   flight: {
     flightNumber: string;
     airline: {
-      name: string;
       code: string;
+      name: string;
     };
     departure: {
       airport: {
-        name: string;
         code: string;
+        name: string;
         city: string;
+        country: string;
       };
       time: string;
     };
     arrival: {
       airport: {
-        name: string;
         code: string;
+        name: string;
+        city: string;
+        country: string;
       };
       time: string;
     };
+    status: string;
+    delay: string;
   };
-}
+};
 
 interface StoredFlight {
-  flightNumber: string;
-  airline: {
-    name: string;
-    code: string;
-  };
-  departure: {
-    airport: {
-      name: string;
-      code: string;
-    };
-    time: string;
-  };
-  arrival: {
-    airport: {
-      name: string;
-      code: string;
-    };
-    time: string;
-  };
+  flight: Flight;
   insuranceAmount: string;
   timestamp: number;
+  insuranceId: string;
 }
 
 interface AddFlightProps {
   onClose: () => void;
+  onFlightAdded?: (flight: StoredFlight) => void;
+  onInsuranceIdReceived?: (insuranceId: string) => void;
 }
 
-interface FlightInsuranceContract {
-  addFlight(
-    flightNumber: string,
-    departureTime: number,
-    arrivalTime: number,
-    insuranceAmount: ethers.BigNumber,
-    options?: { gasLimit: ethers.BigNumber }
-  ): Promise<ethers.ContractTransaction>;
-  estimateGas: {
-    addFlight(
-      flightNumber: string,
-      departureTime: number,
-      arrivalTime: number,
-      insuranceAmount: ethers.BigNumber
-    ): Promise<ethers.BigNumber>;
-  };
-}
+const contractAddress = "0xDC57a3c6c72AD565a2A97F467c42b7a5EbEf042D";
 
-const contractAddress = "0x607B5b424EaDA87AB7D4Af72D1c0463C3d19305e";
-const abi = contractAbi as unknown as ContractInterface;
-
-export default function AddFlight({ onClose }: AddFlightProps) {
+export default function AddFlight({ onClose, onFlightAdded, onInsuranceIdReceived }: AddFlightProps) {
   const [flights, setFlights] = useState<Flight[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const insuranceAmountRef = createRef<HTMLInputElement>();
 
   useEffect(() => {
     const uniqueCities = Array.from(
-      new Set(flightsData.map((item: Flight) => item.flight.departure.airport.city))
-    );
+      new Set(
+        flightsData.map((flight) => flight.flight?.departure?.airport?.city)
+      )
+    ).filter((city) => city);
     setCities(uniqueCities);
     setFlights(flightsData);
-  }, []);
+  }, [flightsData]);
 
   const handleCitySelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const city = event.target.value;
@@ -109,89 +90,104 @@ export default function AddFlight({ onClose }: AddFlightProps) {
     setSelectedFlight(selected);
   };
 
-  const storeFlightDetails = (flightDetails: Flight, insuranceAmount: string) => {
-    const storedFlight: StoredFlight = {
-      flightNumber: flightDetails.flight.flightNumber,
-      airline: {
-        name: flightDetails.flight.airline.name,
-        code: flightDetails.flight.airline.code,
-      },
-      departure: {
-        airport: {
-          name: flightDetails.flight.departure.airport.name,
-          code: flightDetails.flight.departure.airport.code,
-        },
-        time: flightDetails.flight.departure.time,
-      },
-      arrival: {
-        airport: {
-          name: flightDetails.flight.arrival.airport.name,
-          code: flightDetails.flight.arrival.airport.code,
-        },
-        time: flightDetails.flight.arrival.time,
-      },
-      insuranceAmount,
-      timestamp: Date.now(),
-    };
-
-    const existingFlights = JSON.parse(localStorage.getItem('insuredFlights') || '[]');
-    localStorage.setItem('insuredFlights', JSON.stringify([...existingFlights, storedFlight]));
-  };
-
   async function addFlight(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!selectedFlight) {
-      alert("Please select a flight.");
-      return;
-    }
-
+    if (!selectedFlight || isProcessing) return;
+  
+    setIsProcessing(true);
+    console.log("Starting flight addition process...");
+  
     try {
-      const provider = new ethers.providers.Web3Provider((window as any).ethereum);
-      await provider.send("eth_requestAccounts", []);
-
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        contractAddress, 
-        abi, 
-        signer
-      ) as unknown as FlightInsuranceContract;
-
       const insuranceAmount = insuranceAmountRef.current?.value || "0";
       const parsedAmount = ethers.utils.parseEther(insuranceAmount);
-      
-      const estimatedGas = await contract.estimateGas.addFlight(
-        selectedFlight.flight.flightNumber,
-        new Date(selectedFlight.flight.departure.time).getTime(),
-        new Date(selectedFlight.flight.arrival.time).getTime(),
-        parsedAmount
-      );
-
-      const tx = await contract.addFlight(
-        selectedFlight.flight.flightNumber,
-        new Date(selectedFlight.flight.departure.time).getTime(),
-        new Date(selectedFlight.flight.arrival.time).getTime(),
+  
+      const flightDetails = selectedFlight;
+  
+      console.log("Sending transaction with details:", {
+        insuranceAmount,
+        flight: flightDetails,
+      });
+  
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, contractAbi.abi, signer);
+  
+      const userAddress = await signer.getAddress(); // _user
+      const flightNumber = selectedFlight.flight.flightNumber; // _flightNumber
+      const airlineCode = selectedFlight.flight.airline.code; // _airlineCode
+      const airlineName = selectedFlight.flight.airline.name; // _airlineName
+      const departureAirportCode = selectedFlight.flight.departure.airport.code; // _departureAirportCode
+      const departureAirportName = selectedFlight.flight.departure.airport.name; // _departureAirportName
+      const departureDateAndTime = selectedFlight.flight.departure.time; // _departureDateAndTime
+      const arrivalAirportCode = selectedFlight.flight.arrival.airport.code; // _arrivalAirportCode
+      const arrivalAirportName = selectedFlight.flight.arrival.airport.name; // _arrivalAirportName
+      const arrivalDateAndTime = selectedFlight.flight.arrival.time; // _arrivalDateAndTime
+  
+      // Call the createInsurance function with the gathered parameters
+      const tx = await contract.createInsurance(
+        userAddress,
         parsedAmount,
-        { gasLimit: estimatedGas.mul(11).div(10) }
+        flightNumber,
+        airlineCode,
+        airlineName,
+        departureAirportCode,
+        departureAirportName,
+        departureDateAndTime,
+        arrivalAirportCode,
+        arrivalAirportName,
+        arrivalDateAndTime
       );
-
-      await tx.wait(1);
-      
-      storeFlightDetails(selectedFlight, insuranceAmount);
-      
-      alert("Flight insurance added successfully!");
-      
-      // Reset form
-      setSelectedCity("");
-      setSelectedFlight(null);
-      setFilteredFlights([]);
-      if (insuranceAmountRef.current) {
-        insuranceAmountRef.current.value = "";
+  
+      // Wait for the transaction to be mined
+      const receipt = await tx.wait();
+      console.log("Transaction receipt:", receipt);
+  
+      // Extract insuranceId from the event logs
+      const insuranceId = receipt.events?.find(
+        (event: any) => event.event === "InsuranceCreated"
+      )?.args?.insuranceId;
+  
+      if (!insuranceId) {
+        throw new Error("Insurance ID not found in the transaction receipt.");
       }
-    } catch (error) {
-      console.error("Error adding flight:", error);
-      alert("Failed to add flight insurance. Please try again.");
+  
+      // Convert insuranceId to string and store it in localStorage
+      const insuranceIdString = insuranceId.toString();
+  
+      // Call the callback function to send insuranceId to parent component
+      if (onInsuranceIdReceived && insuranceIdString) {
+        onInsuranceIdReceived(insuranceIdString);
+      }
+  
+      // Create stored flight object
+      const storedFlight: StoredFlight = {
+        flight: flightDetails,
+        insuranceAmount,
+        timestamp: Date.now(),
+        insuranceId: insuranceIdString,
+      };
+  
+      // Update localStorage
+      const existingFlights = JSON.parse(localStorage.getItem("insuredFlights") || "[]");
+      const updatedFlights = [...existingFlights, storedFlight];
+      localStorage.setItem("insuredFlights", JSON.stringify(updatedFlights));
+      console.log("Updated flights in localStorage:", updatedFlights);
+  
+      // Callback to notify the parent component
+      if (onFlightAdded) {
+        onFlightAdded(storedFlight);
+      }
+  
+      alert("Flight insurance added successfully!");
+      onClose();
+    } catch (error: any) {
+      console.error("Error adding flight insurance:", error);
+      alert("Failed to add flight insurance.");
+    } finally {
+      setIsProcessing(false);
     }
   }
+  
 
   return (
     <div className="relative flex min-w-[50%] flex-col overflow-hidden rounded-2xl bg-gray-100">
@@ -202,12 +198,12 @@ export default function AddFlight({ onClose }: AddFlightProps) {
         <button
           onClick={onClose}
           className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-white hover:bg-blue-500 transition-colors"
-          aria-label="Close modal"
+          disabled={isProcessing}
         >
           <X size={24} />
         </button>
       </div>
-      
+
       <form onSubmit={addFlight} className="flex flex-col gap-y-8 px-8 pb-8">
         <div className="flex flex-col">
           <h2 className="font-semibold mb-2">Choose Departure City</h2>
@@ -216,6 +212,7 @@ export default function AddFlight({ onClose }: AddFlightProps) {
             required
             value={selectedCity}
             className="w-full rounded-lg border border-solid border-gray-300 px-4 py-2"
+            disabled={isProcessing}
           >
             <option value="">Select a city</option>
             {cities.map((city, index) => (
@@ -233,6 +230,7 @@ export default function AddFlight({ onClose }: AddFlightProps) {
               onChange={handleFlightSelection}
               required
               className="w-full rounded-lg border border-solid border-gray-300 px-4 py-2"
+              disabled={isProcessing}
             >
               <option value="">Select a flight</option>
               {filteredFlights.map((flight, index) => (
@@ -244,39 +242,26 @@ export default function AddFlight({ onClose }: AddFlightProps) {
           </div>
         )}
 
-        {selectedFlight && (
-          <div className="border rounded-lg p-4 bg-white">
-            <h3 className="font-bold text-xl mb-2">{selectedFlight.flight.flightNumber}</h3>
-            <p>
-              <strong>Airline:</strong> {selectedFlight.flight.airline.name} ({selectedFlight.flight.airline.code})
-            </p>
-            <p>
-              <strong>Departure:</strong> {selectedFlight.flight.departure.airport.name} (
-              {selectedFlight.flight.departure.airport.code}),{" "}
-              {new Date(selectedFlight.flight.departure.time).toLocaleString()}
-            </p>
-            <p>
-              <strong>Arrival:</strong> {selectedFlight.flight.arrival.airport.name} (
-              {selectedFlight.flight.arrival.airport.code}),{" "}
-              {new Date(selectedFlight.flight.arrival.time).toLocaleString()}
-            </p>
-          </div>
-        )}
-
         <div className="flex flex-col">
-          <h2 className="font-semibold mb-2">Insurance Amount (AVAX)</h2>
+          <h2 className="font-semibold mb-2">Insurance Amount (ETH)</h2>
           <input
             ref={insuranceAmountRef}
             required
             step="0.01"
             min="0.01"
             type="number"
-            placeholder="Enter insurance amount in AVAX"
+            placeholder="Enter insurance amount in ETH"
             className="w-full rounded-lg border border-solid border-gray-300 px-4 py-2"
+            disabled={isProcessing}
           />
         </div>
-        <button className="btn w-max self-center rounded-md bg-blue-600 px-4 py-2 text-white shadow duration-300 hover:brightness-110">
-          Submit
+
+        <button
+          type="submit"
+          className="btn w-max self-center rounded-md bg-blue-600 px-4 py-2 text-white shadow duration-300 hover:brightness-110 disabled:opacity-50"
+          disabled={isProcessing}
+        >
+          {isProcessing ? "Processing..." : "Submit"}
         </button>
       </form>
     </div>

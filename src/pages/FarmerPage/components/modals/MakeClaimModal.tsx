@@ -1,6 +1,5 @@
 import useModal from "../../../../hooks/useModal";
 import MaterialIcon from "../../../../common/MaterialIcon";
-import useFetch from "../../../../hooks/useFetch";
 
 interface MakeClaimModalProps {
   landId: number;
@@ -102,7 +101,7 @@ function SuccessState() {
       <p>
         You can successfully claim
         <span className="mx-1 font-medium text-red-500">{90}</span>
-        AVAX for this flight
+        ETH for this flight
       </p>
       <button className="my-3 w-max rounded-lg bg-red-500 px-6 py-2 text-white duration-300 hover:-translate-y-1 hover:saturate-150">
         Claim

@@ -52,9 +52,9 @@ export default function StakingPage() {
           >
             <p>Staked Value</p>
             <h5 className="bg-gradient-to-br bg-clip-text font-poppins text-7xl text-back text-opacity-100">
-              {stakedValue}
+              0.0375
             </h5>
-            <p>AVAX</p>
+            <p>ETH</p>
           </div>
         </div>
       </section>
@@ -63,7 +63,7 @@ export default function StakingPage() {
           You're ranking in about
           <span className="font-poppins text-lg text-primary">
             {" "}
-            {monthlyReward} WING-COINs{" "}
+            300 WING-COINs{" "}
           </span>
           every months
         </p>
