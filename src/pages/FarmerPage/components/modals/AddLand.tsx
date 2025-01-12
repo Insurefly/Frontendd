@@ -123,7 +123,10 @@ export default function AddFlight({ onClose, onFlightAdded, onInsuranceIdReceive
       const arrivalAirportName = selectedFlight.flight.arrival.airport.name; // _arrivalAirportName
       const arrivalDateAndTime = selectedFlight.flight.arrival.time; // _arrivalDateAndTime
   
-      // Call the createInsurance function with the gathered parameters
+      // Manually set a gas limit
+      const gasLimit = 1000000; // Adjust this value based on your contract's requirements
+  
+      // Call the createInsurance function with the gathered parameters and gas limit
       const tx = await contract.createInsurance(
         userAddress,
         parsedAmount,
@@ -135,7 +138,8 @@ export default function AddFlight({ onClose, onFlightAdded, onInsuranceIdReceive
         departureDateAndTime,
         arrivalAirportCode,
         arrivalAirportName,
-        arrivalDateAndTime
+        arrivalDateAndTime,
+        { gasLimit }
       );
   
       // Wait for the transaction to be mined
@@ -182,11 +186,15 @@ export default function AddFlight({ onClose, onFlightAdded, onInsuranceIdReceive
       onClose();
     } catch (error: any) {
       console.error("Error adding flight insurance:", error);
-      alert("Failed to add flight insurance.");
+      alert(
+        error.code === "INSUFFICIENT_FUNDS"
+          ? "Insufficient funds for the transaction."
+          : "Failed to add flight insurance. Check console for details."
+      );
     } finally {
       setIsProcessing(false);
     }
-  }
+  }  
   
 
   return (
